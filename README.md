@@ -83,12 +83,7 @@ The server will start, and you can access the app at [http://127.0.0.1:5000/](ht
 
 ## Application Routes
 
-- `/`  
-  Returns a simple HTML greeting message.
-
-- `/json`  
-  Returns a JSON response with a greeting message.
-
+TODO
 ---
 
 ## Notes
