@@ -22,21 +22,22 @@ def detect_emotion():
         text (str): The text input from the user for emotion detection.
 
     Returns:
-        str: A formatted string containing emotion scores and the dominant emotion.
+        str: A formatted string containing emotion scores and the dominant emotion,
+             or an error message for invalid or blank inputs.
     """
     # Get the text input from the request query parameters
     text_to_analyse = request.args.get("text")
 
-    # Return an error if no text is provided
-    if not text_to_analyse:
-        return "Error: No text provided for emotion analysis.", 400
+    # Return an error if no text is provided or input is blank
+    if not text_to_analyse or text_to_analyse.strip() == "":
+        return "Invalid text! Please try again!", 400
 
     # Call the emotion detector function from the EmotionDetection package
     result = emotion_detector(text_to_analyse)
 
-    # If the result is None or incomplete, return an error
-    if not result or "dominant_emotion" not in result:
-        return "Error: Emotion detection failed. Please try again.", 500
+    # If dominant_emotion is None, meaning error or blank input handled inside emotion_detector
+    if result is None or result.get("dominant_emotion") is None:
+        return "Invalid text! Please try again!", 400
 
     # Format the output string as required
     response_text = (
